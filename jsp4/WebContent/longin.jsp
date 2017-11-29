@@ -23,13 +23,26 @@ function checkValue1(){
 		return false;
 	}
 	return true;
-}		
+}	
+
+function formSubmit(){
+	var param = {};
+	param["id"]= document.getElementById("id").value;
+	param["pwd"]= document.getElementById("pwd").value;
+	
+	//alert(JSON.stringify(param));
+	
+	param = [{"id" : "test","pwd" : "password"},
+		{"id" : "test2","pwd" : "password2"}];
+	alert(param[1].id);
+	alert(param[1].pwd);
+}
 </script>
 
 <form method ="Post" action ="/test.login" onsubmit="return checkValue1()">
 아이디 : <input type = "text" name = "id" id = "id"><br>
 비밀번호 : <input type = "password" name = "pwd" id = "pwd"><br>
-<input type="submit" value = "login">
+<input type="button" value = "login" onclick= "formSubmit()">
 </form>
 
 
