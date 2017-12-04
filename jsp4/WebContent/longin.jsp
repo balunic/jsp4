@@ -15,7 +15,7 @@ function checkValue1(){
 	if (id.value.trim()=="") {
 		alert("id를 입력해주세요");
 		id.focus();
-		return false;
+		return false; 
 	}
 	if (pwd.value.trim()=="") {
 		alert("pw를 입력해주세요");
