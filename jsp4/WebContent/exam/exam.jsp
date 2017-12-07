@@ -1,3 +1,5 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="com.test.jsp.common.ListExam"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,34 +16,33 @@
 
 <body>
 <%
-ArrayList<HashMap<String,String>> al = new ArrayList<>();
 
+ListExam le = new ListExam();
+ArrayList<HashMap<String, String>> userList = le.getUserList();                    
 
-HashMap<String,String> hm = new HashMap<>(); //array는 키를 숫자(배열로)해야하지만, 헤쉬맵은 키를 숫자이외의 모든것을 쓸수 있음.
-
-hm.put("name","홍길동");
-hm.put("age","33");
-al.add(hm);
-
-//HashMap<String,String> hm1 = new HashMap<>();
-hm.put("name","박경훈");
-hm.put("age","35");
-al.add(hm);
- 
 %>
-
  
 <table border = "1";>
 <tr>
+<th>유저번호</th>
 <th><%=str1 %></th>
 <th><%=str2 %></th>
+<th>주소</th>
+<th>아이디</th>
+<th>비밀번호</th>
+<th>부서번호</th>
+<th>부서이름</th>
+<th>부서설명</th>
 </tr>
 
 <% 
-for(HashMap<String,String>map : al){
+for(HashMap<String,String>map : userList){            //키값을 가져오는 부분
 	out.print("<tr>");
-	out.print("<td>" + map.get("name")+ "</td>");
-	out.print("<td>" + map.get("age")+ "</td>");
+ Iterator<String > it = map.keySet().iterator();
+ while(it.hasNext()){
+	 String key = it.next();
+	 out.println("<td>"+ map.get(key)+"</td>");   //어떤키값인지 몰라도 불러낼수 있는 방법--> iterator패턴
+ }
 	out.print("</tr>");
 }
 
