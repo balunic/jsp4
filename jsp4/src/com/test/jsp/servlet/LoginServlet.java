@@ -42,12 +42,16 @@ public class LoginServlet extends HttpServlet {
 		
 		
 		String msg = "";
-		
+		String str =null;
 		if(testId.equals(id)) {
 			if(testPwd.equals(pwd)) {
-				pw.println(id + "님 로그인에 성공하셨습니다");
+				str += "{\"result\":\"ok\",";
+				str += "\"msg\":\"로그인에 성공하셨습니다.\"";
+				str += "}";
 			}else {
-				msg = id + "님 비밀번호 확인해주세요";
+				str += "{\"result\":\"ok\",";
+				str += "\"msg\":\"비밀번호.\"";
+				str += "}";
 			}
 		}else {
 			msg = id + "님 아이디가 없습니다";

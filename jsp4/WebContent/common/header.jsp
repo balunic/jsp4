@@ -1,3 +1,5 @@
+<%@page import="com.test.jsp.dto.UserInfo"%>
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,7 +9,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JSP4</title>
 </head>
-<script type="text/javascript">
+<% 
+UserInfo user = null;
+user = (UserInfo) session.getAttribute("user"); 
+String m2 = "로그인";
+String u2 = "/user/login.jsp";
+if(user!=null){
+	m2="로그아웃";
+	u2= "/user/logout.user?cmd=logout";
+}
+
+%>
+
+<script >
 var AjaxUtil = function(p_url, p_params, p_method,p_aSync){
 	if(!p_url || p_url.trim()==""){
 		alert("AjaxUtil호출시 url은 필수 입니다.");
@@ -59,7 +73,7 @@ var AjaxUtil = function(p_url, p_params, p_method,p_aSync){
 <table border = "1">
 	<tr>
 	  <td><a href = "/index.jsp">home</a></td>  
-	  <td><a href = "/user/login.jsp">로그인</a></td>
+	  <td><a href = "<%=u2%>"><%=m2%></a></td>
 	  <td><a href = "#">회원가입</a></td>
 	  <td><a href = "#">게시판</a></td>
 	  <td><a href = "/user/login.jsp">유저리스트</a></td>

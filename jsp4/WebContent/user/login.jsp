@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/common/header.jsp" %>    
@@ -14,25 +15,51 @@
 //function test(){  //function인 애들은 이미 다 읽어놔서 가능함 
 //	alsert(1);
 //}
-
-
+function callback(result){
+	
+	var obj = JSON.parse(result);
+	
+	alert(obj.msg);
+	if(obj.result=="ok"){
+		location.reload();
+	}
+	//document.getElementById("resultDiv").innerHTML = obj.result;
+}
 function login(){
-	var url = "list.user?cmd=list";
-	var param ='?cmd = list'
+//	var params = '{"id": "test","pwd":"1234"}';
+//	params= JSON.parse(params); //json형으로 파싱한것
+//	alert(params.id);
+//	alert(params.pwd);
+//	return;
+	
+	var url = 'list.user';
+	var id =document.getElementById("id");
+	var pwd = document.getElementById("pwd");
+	var param ='?cmd=login&id=' + id.value + '&pwd=' + pwd.value;
+	
 	var au = new AjaxUtil(url,param);
+	au.changeCallBack(callback);
 	au.send();
 }
-
-
 
 
 </script>
 
 <body>
+<%
+if(user!=null){
+out.println(user.getUserName()+ "님 환영해요~");
+out.println(user.getUserAge()+ "살 이시군요~");
+}else{
+%>
+<div id="resultDiv"></div>
 <form method ="Post" action ="/test.login" >
 아이디 : <input type = "text" name = "id" id = "id"><br>
 비밀번호 : <input type = "password" name = "pwd" id = "pwd"><br>
 <input type="button" value = "login" onclick= "login()">
 </form>
+<%
+}
+%>
 </body>
 </html>
