@@ -85,7 +85,25 @@ public class UserServlet extends HttpServlet {
 			HttpSession hs = req.getSession();
 			hs.invalidate();  //요놈은 세션을 가지고 있는 것들을 초기화하는 기능 
 			res.sendRedirect("/user/longin.jsp");
-		} else {
+		} else if (cmd.equals("join")){
+			
+			String params = req.getParameter("params");
+			Gson gs = new Gson();
+			HashMap hm = gs.fromJson(params, HashMap.class);
+			int result = us.insertUser(hm);
+			hm.put("result", "no");
+			hm.put("msg", "회원가입에 실패하셨습니다");
+			
+			
+			if(result!=0) {
+			hm.put("result", "ok");
+			hm.put("msg", "회원가입에 성공하셨습니다");
+			hm.put("url", "/user/login,jsp");
+			
+			
+		}
+			out.print(gs.toJson(hm));
+		}else {
 			res.sendRedirect("/error.jsp");
 		}
 	}

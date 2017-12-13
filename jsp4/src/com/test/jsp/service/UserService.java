@@ -14,4 +14,5 @@ public interface UserService { //userServoce는 인터페이스 userServiceip �
 
 	public ArrayList<HashMap<String, String>> getUserList();
 	public UserInfo getUser(String id,String pwd)throws ClassNotFoundException, SQLException;
+	public int insertUser(HashMap hm);
 }

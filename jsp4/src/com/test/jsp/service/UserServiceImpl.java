@@ -79,8 +79,9 @@ public class UserServiceImpl implements UserService {   // userService는 인터
 			
 				al.add(hm); // 이때 al에 해당 데이터가 들어감
 
-			}
-
+			}	
+			
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -92,5 +93,33 @@ public class UserServiceImpl implements UserService {   // userService는 인터
 			}
 		}
 		return al;
+	}
+	public int insertUser(HashMap hm) {
+		int result = 0;
+		DBcon dbcon = new DBcon();
+		
+		try {
+			Connection con = dbcon.getConnection();
+			String sql = "insert into user_info(username,userid,";
+			sql += "userpwd,userage,useraddress)";
+			sql += "values(?,?,?,?,?)";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, (String)hm.get("name"));
+			ps.setString(2, (String)hm.get("id"));
+			ps.setString(3, (String)hm.get("pwd"));
+			ps.setString(4, (String)hm.get("age"));
+			ps.setString(5, (String)hm.get("address"));
+			result = ps.executeUpdate();	
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				dbcon.closeCon();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 }
