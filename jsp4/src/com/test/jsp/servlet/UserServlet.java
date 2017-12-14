@@ -42,45 +42,10 @@ public class UserServlet extends HttpServlet {
 			res.sendRedirect("/error.jsp");
 		} else if (cmd.equals("list")) {
 			String html = "";
-			ArrayList<HashMap<String, String>> userList = us.getUserList();
+			ArrayList<UserInfo> userList = us.getUserList();
 
-			for (HashMap<String, String> map : userList) { // 키값을 가져오는 부분
-				html += "<tr>";
-				Iterator<String> it = map.keySet().iterator();
-				while (it.hasNext()) {
-					String key = it.next();
-					out.println("<td>" + map.get(key) + "</td>"); // 어떤키값인지 몰라도 불러낼수 있는 방법--> iterator패턴
-				}
-				html += "</tr>";
-			}
-			out.println(html);
-		} else if (cmd.equals("login")) {
-			String id = req.getParameter("id");
-			String pwd = req.getParameter("pwd");
-
-			HashMap<String, String> hm
-			= new HashMap<String,String>();
-			try {
-				UserInfo ui = us.getUser(id, pwd);
-				if (ui == null) {
-					hm.put("result", "no");
-					hm.put("msg", "아이디와 비번확인");
-				} else {
-					HttpSession hs = req.getSession();
-					hs.setAttribute("user", ui);
-					hm.put("result", "ok");
-					hm.put("msg", ui.getUserName() + "님 환영!");
-				}
-
-				Gson gs = new Gson();
-				out.print(gs.toJson(hm));
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Gson gs = new Gson();
+			out.print(gs.toJson(userList));
 		} else if (cmd.equals("logout")) {
 			HttpSession hs = req.getSession();
 			hs.invalidate();  //요놈은 세션을 가지고 있는 것들을 초기화하는 기능 
@@ -89,8 +54,12 @@ public class UserServlet extends HttpServlet {
 			
 			String params = req.getParameter("params");
 			Gson gs = new Gson();
-			HashMap hm = gs.fromJson(params, HashMap.class);
-			int result = us.insertUser(hm);
+			UserInfo ui= gs.fromJson(params, UserInfo.class);
+			
+		
+			int result = us.insertUser(ui);
+			HashMap<String,String>hm = 
+					new HashMap<String,String>();
 			hm.put("result", "no");
 			hm.put("msg", "회원가입에 실패하셨습니다");
 			

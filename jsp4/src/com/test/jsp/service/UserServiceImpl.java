@@ -46,9 +46,9 @@ public class UserServiceImpl implements UserService {   // userService는 인터
 
 		
 	}
-	public ArrayList<HashMap<String, String>> getUserList() {
+	public ArrayList<UserInfo> getUserList() {
 
-		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
+		ArrayList<UserInfo> al = new ArrayList<UserInfo>();
 
 		DBcon dbcon = new DBcon();
 		
@@ -66,19 +66,16 @@ public class UserServiceImpl implements UserService {   // userService는 인터
 
 			// next는 데이터가 있는지 없는지 체크 없어도 메타데이터는 간다 (액샐의 맨위칸)
 			while (rs.next()) { // next를 하면 데이터가 있으면 true값 출력.
-				hm = new HashMap<String, String>();
-				hm.put("userno", rs.getString("userno"));
-				hm.put("username", rs.getString("username"));
-				hm.put("userid", rs.getString("userid"));
-				hm.put("userpwd", rs.getString("userpwd"));
-				hm.put("userage", rs.getString("userage"));
-				hm.put("dino", rs.getString("dino"));
-				hm.put("useraddress", rs.getString("useraddress"));
-				hm.put("diname", rs.getString("diname"));
-				hm.put("dietc", rs.getString("dietc"));
-			
-				al.add(hm); // 이때 al에 해당 데이터가 들어감
-
+				UserInfo ui = new UserInfo();
+				ui.setUserNo(rs.getInt("userno"));
+				ui.setUserName(rs.getString("username"));
+				ui.setUserId(rs.getString("userid"));
+				ui.setUserPwd(rs.getString("userpwd"));
+				ui.setUserAddress(rs.getString("useraddress"));
+				ui.setUserAge(rs.getInt("userage"));
+				al.add(ui);
+				
+	
 			}	
 			
 			
@@ -122,4 +119,34 @@ public class UserServiceImpl implements UserService {   // userService는 인터
 		}
 		return result;
 	}
+	
+	public int insertUser(UserInfo ui) {
+		int result = 0;
+		DBcon dbcon = new DBcon();
+		
+		try {
+			Connection con = dbcon.getConnection();
+			String sql = "insert into user_info(username,userid,";
+			sql += "userpwd,userage,useraddress)";
+			sql += "values(?,?,?,?,?)";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, ui.getUserName());
+			ps.setString(2, ui.getUserId());
+			ps.setString(3, ui.getUserPwd());
+			ps.setInt(4, ui.getUserAge());
+			ps.setString(5, ui.getUserAddress());
+			result = ps.executeUpdate();	
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				dbcon.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	
 }
