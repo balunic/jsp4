@@ -1,18 +1,13 @@
 package com.test.jsp.dto;
 
 public class UserInfo {
-	private String userName; // 은닉
+	private String userName;
 	private String userId;
 	private String userPwd;
 	private String userAddress;
-	private int userNo;
-	private int userAge;
-	private int dino;
-	@Override
-	public String toString() {
-		return "UserInfo [userName=" + userName + ", userId=" + userId + ", userPwd=" + userPwd + ", userAddress="
-				+ userAddress + ", userNo=" + userNo + ", userAge=" + userAge + ", dino=" + dino + "]";
-	}
+	private Integer userNo;
+	private Integer userAge;
+	private Integer diNo;
 	public String getUserName() {
 		return userName;
 	}
@@ -37,24 +32,28 @@ public class UserInfo {
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
 	}
-	public int getUserNo() {
+	public Integer getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(int i) {
-		this.userNo = i;
+	public void setUserNo(Integer userNo) {
+		this.userNo = userNo;
 	}
-	public int getUserAge() {
+	public Integer getUserAge() {
 		return userAge;
 	}
-	public void setUserAge(int i) {
-		this.userAge = i;
+	public void setUserAge(Integer userAge) {
+		this.userAge = userAge;
 	}
-	public int getDino() {
-		return dino;
+	public Integer getDiNo() {
+		return diNo;
 	}
-	public void setDino(int i) {
-		this.dino = i;
+	public void setDiNo(Integer diNo) {
+		this.diNo = diNo;
 	}
-
+	@Override
+	public String toString() {
+		return "UserInfo [userName=" + userName + ", userId=" + userId + ", userPwd=" + userPwd + ", userAddress="
+				+ userAddress + ", userNo=" + userNo + ", userAge=" + userAge + ", diNo=" + diNo + "]";
+	}
 	
 }

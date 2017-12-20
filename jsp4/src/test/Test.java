@@ -1,17 +1,14 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Test {
-	public static void main(String[] args) {
-//		List<Map<String, String>> list = new ArrayList<Map<String, String>> 
-//	Map<String, String> m = new HashMap <String, String>();
-
-		String name ="ȫ�浿";
-		
-		System.out.println(name);
+	Person p = new Person();
 	
-	
-	
-	
+	public String getString() {
+		return this.p.getName();
 	}
-
 }
