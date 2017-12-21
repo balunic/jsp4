@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-<%@ include file="/common/header.jsp" %>
+<%@ include file="/common/header.jsp"%>
 
 <html>
 
@@ -14,7 +15,7 @@
 
 <body>
 
-<script>
+	<script>
 
 //location.href="./test.jsp";
 
@@ -40,163 +41,151 @@ $(document).ready(function(){ //여기는 브라우저단임, 서버에 요청�
 
 	param["cmd"]="view"; 
 
-	param["userno"]="<%=request.getParameter("userno")%>"; 
+	param["userno"]="<%=request.getParameter("userno")%>
+		";
 
-	$.ajax({
+			$.ajax({
 
-		type:"post",
+				type : "post",
 
-		url:url,
+				url : url,
 
-		dataType:"json",
+				dataType : "json",
 
-		data:param,
+				data : param,
 
-		success:afterView,
+				success : afterView,
 
-		error:function(xhr,status){alert("에러:"+xhr.responxeText);}
+				error : function(xhr, status) {
+					alert("에러:" + xhr.responxeText);
+				}
 
-	});
+			});
 
-});
+		});
+	</script>
 
-</script>
+	<form class="form-signin">
+		<!--sumit버튼사용할거아니니까 action="/login.user" method="post" 이거 삭제 -->
 
-<form class="form-signin" > <!--sumit버튼사용할거아니니까 action="/login.user" method="post" 이거 삭제 -->
+		<h2 class="form-signin-heading ">회원정보</h2>
 
-		<h2 class="form-signin-heading ">회원정보</h2> 
+		<label for="id" class="sr-only">ID</label> <input type="text-center"
+			id="userId" name="id" class="form-control" placeholder="ID" required
+			autofocus disabled> <label for="pwd" class="sr-only">Password</label>
 
-		<label for="id" class="sr-only">ID</label> 
+		<input type="password" name="pwd" id="userPwd" class="form-control"
+			placeholder="Password" required disabled> <label for="id"
+			class="sr-only">이름</label> <input type="text" id="userName"
+			name="name" class="form-control" placeholder="이름" required autofocus
+			disabled> <label for="id" class="sr-only">나이</label> <input
+			type="text" id="userAge" name="age" class="form-control"
+			placeholder="나이" required autofocus disabled> <label for="id"
+			class="sr-only">주소</label> <input type="text" id="userAddress"
+			name="address" class="form-control" placeholder="주소" required
+			autofocus disabled>
 
-		<input type="text-center" id="userId" name="id" class="form-control" placeholder="ID" required autofocus disabled> 
 
-		
-
-		<label for="pwd" class="sr-only">Password</label>
-
-		<input type="password" name="pwd" id="userPwd" class="form-control" placeholder="Password" required disabled>
-
-		
-
-		<label for="id" class="sr-only">이름</label> 
-
-		<input type="text" id="userName" name="name" class="form-control" placeholder="이름" required autofocus disabled> 
-
-		
-
-		<label for="id" class="sr-only">나이</label> 
-
-		<input type="text" id="userAge" name="age" class="form-control" placeholder="나이" required autofocus disabled> 
-
-		
-
-		<label for="id" class="sr-only">주소</label> 
-
-		<input type="text" id="userAddress" name="address" class="form-control" placeholder="주소" required autofocus disabled> 
-
-		
 
 		<%
-
-		if(user!=null && user.getUserNo().toString().equals(request.getParameter("userno"))){
-
+			if (user != null && user.getUserNo().toString().equals(request.getParameter("userno"))) {
 		%>
 
-		<input type="text" id="checkPwd" name="checkPwd" >
+		<input type="text" id="checkPwd" name="checkPwd"> <input
+			type="button" value="회원수정" id="btnUpdate"> <input
+			type="button" onclick="deleteUser()" value="회원탈퇴">
 
-		<input type="button" value="회원수정" id="btnUpdate"> 
+		<script>
+			function afterCheckPwd(result) {
 
-		<input type="button" onclick="deleteUser()" value="회원탈퇴" >
+				if (result.result == "ok") {
 
-<script>
+					$("#userAddress").removeAttr("disabled");
+					$("#userPwd").removeAttr("disabled");
+					$("#userName").removeAttr("disabled");
+					$("#userAge").removeAttr("disabled");
 
-function afterCheckPwd(result){
+				} else {
+					alert(result.msg);
+				}
 
-	if(result.result=="ok"){
-	
-	$("#userAddress").removeAttr("disabled");
-	$("#userPwd").removeAttr("disabled");	
-	$("#userName").removeAttr("disabled");	
-	$("#userAge").removeAttr("disabled");	
+			}
 
-	}else{
-		alert(result.msg);
-	}
+			$("#btnUpdate").click(function() {
 
-}
+				//alert($("#checkPwd").val());
 
-$("#btnUpdate").click(function(){
+				var url = "d.user";
 
-	//alert($("#checkPwd").val());
+				var param = {};
 
-	var url="d.user"; 
+				param["cmd"] = "checkPwd";
 
-	var param={};
+				param["checkPwd"] = $("#checkPwd").val();
 
-	param["cmd"]="checkPwd"; 
+				$.ajax({
 
-	param["checkPwd"]=$("#checkPwd").val();
+					type : "post",
 
-	$.ajax({
+					url : url,
 
-		type:"post",
+					dataType : "json",
 
-		url:url,
+					data : param,
 
-		dataType:"json",
+					success : afterCheckPwd,
 
-		data:param,
+					error : function(xhr, status) {
+						alert("에러:" + xhr.responxeText);
+					}
 
-		success:afterCheckPwd,
+				});
 
-		error:function(xhr,status){alert("에러:"+xhr.responxeText);}
+			})
 
-	});
+			function afterDelete(result) {
 
-})
+				alert(result.msg);
 
-function afterDelete(result){
+				if (result.result == "ok") {
+					location.href = result.url;
+				}
 
-	alert(result.msg);
+			}
 
-	if(result.result=="ok"){ location.href=result.url;}	
+			function deleteUser() {
 
-}
+				var url = "d.user";
 
-function deleteUser(){
+				var param = {};
 
-	var url="d.user"; 
+				param["cmd"] = "delete";
 
-	var param={};
+				param["checkPwd"] = $("#checkPwd").val();
 
-	param["cmd"]="delete"; 
+				$.ajax({
 
-	param["checkPwd"]=$("#checkPwd").val();
+					type : "post",
 
-	$.ajax({
+					url : url,
 
-		type:"post",
+					dataType : "json",
 
-		url:url,
+					data : param,
 
-		dataType:"json",
+					success : afterDelete,
 
-		data:param,
+					error : function(xhr, status) {
+						alert("에러:" + xhr.responxeText);
+					}
 
-		success:afterDelete,
+				});
 
-		error:function(xhr,status){alert("에러:"+xhr.responxeText);}
-
-	});
-
-}
-
-</script>
+			}
+		</script>
 
 		<%
-
-		}
-
+			}
 		%>
 
 	</form>

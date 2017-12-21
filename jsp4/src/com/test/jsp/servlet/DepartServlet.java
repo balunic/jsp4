@@ -34,29 +34,28 @@ public class DepartServlet extends HttpServlet {
 	}
 
 	public void doProcess(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		req.setCharacterEncoding("utf-8");
-		res.setCharacterEncoding("utf-8");
-		res.setContentType("text/html;charset=utf-8");
-		PrintWriter out = res.getWriter();
+
 		String uri = req.getRequestURI();
 		String cmd = getCommandForUri(uri);
 		System.out.println(cmd);
 
 		RequestDispatcher rd = null;
-		uri = uri.replace("/s", "/");
+		
 		if (cmd.equals("list")) {
-			ds.selectDepartList(req);
+			req.setAttribute("departList", ds.selectDepartList());
 		} else if (cmd.equals("view")) {
-
-		} else if (cmd.equals("insert")) {
-			
+			String diNo = req.getParameter("dino");
+			System.out.println(diNo);
+			req.setAttribute("depart",ds.selectDepart());
 		} else if (cmd.equals("update")) {
+			req.setAttribute("depart",ds.selectDepart());
+		} else if (cmd.equals("insert")) {
 			
 		} else {
 			uri = "/error";
 		}
 
-		rd = req.getRequestDispatcher(uri + ".jsp");
+		rd = req.getRequestDispatcher("/WEB-INF/view"+uri + ".jsp");
 		rd.forward(req, res);
 	}
 }

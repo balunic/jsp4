@@ -1,15 +1,20 @@
 package com.test.jsp.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
+import com.test.jsp.dto.DepartInfo;
+
 public interface DepartService {
-	public void selectDepartList(HttpServletRequest req);
+	public ArrayList<DepartInfo> selectDepartList();
 	
-	public void selsectDepart(HttpServletRequest req);
+	public DepartInfo selectDepart(int diNo);
 		
-	public void updateDepart(HttpServletRequest req);
+	public void updateDepart();
 	
-	public void insertDepart(HttpServletRequest req);
+	public void insertDepart();
 
 	
 }
