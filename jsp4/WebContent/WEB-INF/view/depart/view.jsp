@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ include file="/common/header.jsp"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <title>Insert title here</title>
 </head>
-<body>
-	
+<body>	
 	<div class="container">
 		<table id="table" data-height="450"
 			class="table table-bordered table-hover">
@@ -24,11 +21,17 @@
 			</tr>
 			<tr>
 				<td>부서설명</td>
-				<td>${depart.didEsc}</td>
+				<td>${depart.diEtc}</td>
+			</tr>
+			<tr>
+				<td colspan="2"><button onclick= "goUpdate()">수정</button></td>
 			</tr>
 		</table>
 	</div>
-
+	<script>
+	function goUpdate(){
+		location.href= "/depart/update?dino=${depart.diNo}";
+	}
+	</script>
 </body>
-
 </html>

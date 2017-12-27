@@ -103,8 +103,8 @@ public class UserServiceImpl implements UserService {
 		try {
 			Connection con = DBcon.getConnection();
 			String sql = "insert into user_info(username,userid,";
-			sql += " userpwd,userage,useraddress)";
-			sql += " values(?,?,?,?,?)";
+			sql += " userpwd,userage,useraddress";
+			sql += " values(?,?,?,?,?,)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, (String) hm.get("name"));
 			ps.setString(2, (String) hm.get("id"));
@@ -130,14 +130,15 @@ public class UserServiceImpl implements UserService {
 		try {
 			Connection con = DBcon.getConnection();
 			String sql = "insert into user_info(username,userid,";
-			sql += " userpwd,userage,useraddress)";
-			sql += " values(?,?,?,?,?)";
+			sql += " userpwd,userage,useraddress,dino)";
+			sql += " values(?,?,?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, ui.getUserName());
 			ps.setString(2, ui.getUserId());
 			ps.setString(3, ui.getUserPwd());
 			ps.setInt(4, ui.getUserAge());
 			ps.setString(5, ui.getUserAddress());
+			ps.setInt(6, ui.getDiNo());
 			result = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

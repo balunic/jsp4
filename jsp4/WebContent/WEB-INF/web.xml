@@ -43,10 +43,6 @@
 		<param-value>제이에스피4</param-value>
 	</context-param>
 
-
-
-
-
 	<filter>
 		<filter-name>EncodingFilter</filter-name>
 		<filter-class>com.test.jsp.common.EncodingFilter</filter-class>

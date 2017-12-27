@@ -21,7 +21,7 @@ public class EncodingFilter implements Filter{
 		req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");
-		fc.doFilter(req, res); //여기서 dofilter하는 순간 departServlet으로 이동됨. 
+		fc.doFilter(req, res);   //여기서 dofilter하는 순간 departServlet으로 이동됨. 
 	}
 
 	
