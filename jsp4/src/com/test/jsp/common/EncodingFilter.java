@@ -9,7 +9,7 @@ import javax.servlet.ServletResponse;
 
 public class EncodingFilter implements Filter{
 
-	@Override //종료시에 
+	@Override // null이되든 종료시에 
 	public void destroy() {
 	System.out.println("필터클래스 종료!");
 	}

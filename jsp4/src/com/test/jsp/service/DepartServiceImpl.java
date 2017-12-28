@@ -37,7 +37,7 @@ public class DepartServiceImpl implements DepartService{
 			di = ddao.selectDepart(diNo);
 		} catch (ClassNotFoundException |SQLException e) {
 			e.printStackTrace();
-		}finally {
+		}finally { 
 			try {
 				dbCon.closeCon();
 			} catch (SQLException e) {
